@@ -22,19 +22,19 @@ public class CalendarTest extends TestBase {
 
         //jeżeli (oczeRok<aktRok) => prev
         if (expectedYear < getYear()) {
-            goPrev();
+            goPrev(expectedMonth, expectedYear);
         }
         //jeżeli (oczeRok>aktRok) => next
         else if (expectedYear > getYear()) {
-            goNext();
+            goNext(expectedMonth, expectedYear);
         }
         //jeżeli (oczeMsc<aktMsc)=> prev
         else if (getIndexOfMonth(expectedMonth) < getIndexOfMonth(getMonth())) {
-            goPrev();
+            goPrev(expectedMonth, expectedYear);
         }
         //jeżeli (oczeMsc>aktMsc)=> next
         else if (getIndexOfMonth(expectedMonth) > getIndexOfMonth(getMonth())) {
-            goNext();
+            goNext(expectedMonth, expectedYear);
         }
 
         // po wszystkim wybranie dnia
@@ -56,14 +56,18 @@ public class CalendarTest extends TestBase {
         return driver.findElement(By.xpath("//td[.='15']")).getAttribute("data-month");
     }
 
-    public void goNext() {
-        driver.findElement(By.className("ui-datepicker-next")).click();
-        sleep();
+    public void goNext(String expectedMonth, int expectedYear) {
+        while (!expectedMonth.equals(getMonth()) || expectedYear != getYear()){
+            driver.findElement(By.className("ui-datepicker-next")).click();
+            sleep();
+        }
     }
 
-    public void goPrev() {
-        driver.findElement(By.className("ui-datepicker-prev")).click();
-        sleep();
+    public void goPrev(String expectedMonth, int expectedYear) {
+        while (!expectedMonth.equals(getMonth()) || expectedYear != getYear()){
+            driver.findElement(By.className("ui-datepicker-prev")).click();
+            sleep();
+        }
     }
 
 
