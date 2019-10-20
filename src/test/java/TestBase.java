@@ -31,7 +31,7 @@ public class TestBase {
         return elements.get(randomNumber);
     }
 
-    public void Sleep(){
+    public void sleep(){
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {

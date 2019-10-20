@@ -18,7 +18,7 @@ public class CalendarTest extends TestBase {
     private void moveTo(String day, String month, String year) {
         WebElement dataPicker = driver.findElement(By.id("datepicker"));
         dataPicker.click();
-        Sleep();
+        sleep();
         //TODO przełączenie na odpwiedni rok + miesiąc
 
         // po wszystkim wybranie dnia
