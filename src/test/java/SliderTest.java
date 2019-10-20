@@ -31,6 +31,5 @@ public class SliderTest extends TestBase {
         moveTo(20);
         moveTo(20);
         moveTo(75);
-
     }
 }

@@ -30,4 +30,12 @@ public class TestBase {
         int randomNumber = rnd.nextInt(elements.size() - 1);
         return elements.get(randomNumber);
     }
+
+    public void Sleep(){
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }
