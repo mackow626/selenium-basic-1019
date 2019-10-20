@@ -1,5 +1,6 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
@@ -11,35 +12,44 @@ public class CalendarTest extends TestBase {
     @Test
     public void Test() {
         driver.get("http://seleniumui.tc-sii.com/datepicker.php");
+        moveTo("10", "October", 2019);
+        Assert.assertEquals(getSelectedDate(), "10/10/2019");
+
         moveTo("10", "December", 2019);
+        Assert.assertEquals(getSelectedDate(), "12/10/2019");
+
+        moveTo("10", "April", 2020);
+        Assert.assertEquals(getSelectedDate(), "04/10/2020");
+
+        moveTo("10", "January", 2020);
+        Assert.assertEquals(getSelectedDate(), "01/10/2020");
+
+        moveTo("10", "December", 2019);
+        Assert.assertEquals(getSelectedDate(), "12/10/2020");
     }
+
 
     private void moveTo(String expectedDay, String expectedMonth, int expectedYear) {
         WebElement dataPicker = driver.findElement(By.id("datepicker"));
         dataPicker.click();
         sleep();
-        //TODO przełączenie na odpwiedni rok + miesiąc
 
-        //jeżeli (oczeRok<aktRok) => prev
         if (expectedYear < getYear()) {
             goPrev(expectedMonth, expectedYear);
-        }
-        //jeżeli (oczeRok>aktRok) => next
-        else if (expectedYear > getYear()) {
+        } else if (expectedYear > getYear()) {
             goNext(expectedMonth, expectedYear);
-        }
-        //jeżeli (oczeMsc<aktMsc)=> prev
-        else if (getIndexOfMonth(expectedMonth) < getIndexOfMonth(getMonth())) {
+        } else if (getIndexOfMonth(expectedMonth) < getIndexOfMonth(getMonth())) {
             goPrev(expectedMonth, expectedYear);
-        }
-        //jeżeli (oczeMsc>aktMsc)=> next
-        else if (getIndexOfMonth(expectedMonth) > getIndexOfMonth(getMonth())) {
+        } else if (getIndexOfMonth(expectedMonth) > getIndexOfMonth(getMonth())) {
             goNext(expectedMonth, expectedYear);
         }
-
-        // po wszystkim wybranie dnia
         selectDay(expectedDay);
     }
+
+    private String getSelectedDate() {
+        return driver.findElement(By.id("datepicker")).getAttribute("value");
+    }
+
 
     private void selectDay(String dayToSelect) {
         List<WebElement> allDays =
@@ -57,14 +67,14 @@ public class CalendarTest extends TestBase {
     }
 
     public void goNext(String expectedMonth, int expectedYear) {
-        while (!expectedMonth.equals(getMonth()) || expectedYear != getYear()){
+        while (!expectedMonth.equals(getMonth()) || expectedYear != getYear()) {
             driver.findElement(By.className("ui-datepicker-next")).click();
             sleep();
         }
     }
 
     public void goPrev(String expectedMonth, int expectedYear) {
-        while (!expectedMonth.equals(getMonth()) || expectedYear != getYear()){
+        while (!expectedMonth.equals(getMonth()) || expectedYear != getYear()) {
             driver.findElement(By.className("ui-datepicker-prev")).click();
             sleep();
         }
@@ -79,7 +89,7 @@ public class CalendarTest extends TestBase {
         return Integer.parseInt(driver.findElement(By.className("ui-datepicker-year")).getText());
     }
 
-    private int getIndexOfMonth(String monthName){
+    private int getIndexOfMonth(String monthName) {
         return allMonths.indexOf(monthName);
     }
 }
