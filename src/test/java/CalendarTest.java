@@ -21,11 +21,11 @@ public class CalendarTest extends TestBase {
         moveTo("10", "April", 2020);
         Assert.assertEquals(getSelectedDate(), "04/10/2020");
 
-        moveTo("10", "January", 2020);
-        Assert.assertEquals(getSelectedDate(), "01/10/2020");
+        moveTo("27", "January", 2020);
+        Assert.assertEquals(getSelectedDate(), "01/27/2020");
 
-        moveTo("10", "December", 2019);
-        Assert.assertEquals(getSelectedDate(), "12/10/2020");
+        moveTo("12", "December", 2019);
+        Assert.assertEquals(getSelectedDate(), "12/12/2020");
     }
 
 
