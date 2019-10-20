@@ -6,23 +6,39 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CalendarTest extends TestBase {
-
     List<String> allMonths = Arrays.asList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
 
     @Test
     public void Test() {
         driver.get("http://seleniumui.tc-sii.com/datepicker.php");
-        moveTo("10", "October", "2019");
+        moveTo("10", "December", 2019);
     }
 
-    private void moveTo(String day, String month, String year) {
+    private void moveTo(String expectedDay, String expectedMonth, int expectedYear) {
         WebElement dataPicker = driver.findElement(By.id("datepicker"));
         dataPicker.click();
         sleep();
         //TODO przełączenie na odpwiedni rok + miesiąc
 
+        //jeżeli (oczeRok<aktRok) => prev
+        if (expectedYear < getYear()) {
+            goPrev();
+        }
+        //jeżeli (oczeRok>aktRok) => next
+        else if (expectedYear > getYear()) {
+            goNext();
+        }
+        //jeżeli (oczeMsc<aktMsc)=> prev
+        else if (getIndexOfMonth(expectedMonth) < getIndexOfMonth(getMonth())) {
+            goPrev();
+        }
+        //jeżeli (oczeMsc>aktMsc)=> next
+        else if (getIndexOfMonth(expectedMonth) > getIndexOfMonth(getMonth())) {
+            goNext();
+        }
+
         // po wszystkim wybranie dnia
-        selectDay(day);
+        selectDay(expectedDay);
     }
 
     private void selectDay(String dayToSelect) {
@@ -40,11 +56,26 @@ public class CalendarTest extends TestBase {
         return driver.findElement(By.xpath("//td[.='15']")).getAttribute("data-month");
     }
 
+    public void goNext() {
+        driver.findElement(By.className("ui-datepicker-next")).click();
+        sleep();
+    }
+
+    public void goPrev() {
+        driver.findElement(By.className("ui-datepicker-prev")).click();
+        sleep();
+    }
+
+
     private String getMonth() {
         return driver.findElement(By.className("ui-datepicker-month")).getText();
     }
 
-    private String getYear() {
-        return driver.findElement(By.className("ui-datepicker-year")).getText();
+    private int getYear() {
+        return Integer.parseInt(driver.findElement(By.className("ui-datepicker-year")).getText());
+    }
+
+    private int getIndexOfMonth(String monthName){
+        return allMonths.indexOf(monthName);
     }
 }
