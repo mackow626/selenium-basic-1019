@@ -35,6 +35,7 @@ public class CalendarTest extends TestBase {
         dataPicker.click();
         sleep();
 
+        
         if (expectedYear < getYear()) {
             goPrev(expectedMonth, expectedYear);
         } else if (expectedYear > getYear()) {
