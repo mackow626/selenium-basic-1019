@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
+import java.io.File;
 import java.util.List;
 import java.util.Random;
 
@@ -54,7 +55,9 @@ public class FormTest extends TestBase{
         commandsSelect.selectByValue("switch-commands");
 
         WebElement fileInput = driver.findElement(By.id("chooseFile"));
-        fileInput.sendKeys("C:\\drivers\\emptyFile.txt");
+
+        File file = new File("src\\main\\resources\\emptyFile.txt");
+        fileInput.sendKeys(file.getAbsolutePath());
 
         WebElement signIn = driver.findElement(By.cssSelector("button[type='submit']"));
         signIn.click();
