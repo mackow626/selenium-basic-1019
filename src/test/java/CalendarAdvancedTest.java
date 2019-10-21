@@ -43,7 +43,7 @@ public class CalendarAdvancedTest extends TestBase {
     }
 
     private void goToYearMonth(CustomDate expectedDate, Direction direction) {
-        while (!getYearMonth().equals(expectedDate.getYearMonth())) {
+        while (!getYearMonth().equals(expectedDate.toYearMonth())) {
             driver.findElement(By.className("ui-datepicker-" + direction)).click();
         }
     }

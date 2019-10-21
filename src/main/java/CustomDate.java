@@ -31,7 +31,7 @@ class CustomDate {
         return date.format(DateTimeFormatter.ofPattern("MM/dd/yyyy"));
     }
 
-    String getYearMonth() {
+    String toYearMonth() {
         return date.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + " " + date.getYear();
     }
 
