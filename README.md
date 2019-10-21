@@ -1,1 +1,1 @@
-selenium-basic-1019
+Podstawowa część szkolenia Selenium
