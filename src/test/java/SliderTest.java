@@ -4,26 +4,6 @@ import org.testng.annotations.Test;
 
 public class SliderTest extends TestBase {
 
-    private int getActualSliderValue(){
-        return Integer.parseInt(
-                driver.findElement(By.id("custom-handle")).getText());
-    }
-
-    private void moveSlider(int number, Keys key){
-        while (getActualSliderValue() != number){
-            driver.findElement(By.id("custom-handle")).sendKeys(key);
-        }
-    }
-
-    public void moveTo(int number) {
-        int actualSliderValue = getActualSliderValue();
-        if (actualSliderValue > number) {
-            moveSlider(number,Keys.ARROW_LEFT);
-        } else if (actualSliderValue < number) {
-            moveSlider(number,Keys.ARROW_RIGHT);
-        }
-    }
-
     @Test
     public void Test() {
         driver.get("http://seleniumui.tc-sii.com/slider.php");
@@ -31,5 +11,29 @@ public class SliderTest extends TestBase {
         moveTo(20);
         moveTo(20);
         moveTo(75);
+    }
+
+    // metoda spradzająca w którą stronę ma się przesunąć slider a następnie zaczynająca go przesuwać
+    private void moveTo(int expectedSliderValue) {
+        int actualSliderValue = getSliderValue();
+
+        if (actualSliderValue > expectedSliderValue) {
+            moveSlider(expectedSliderValue, Keys.ARROW_LEFT);
+        } else if (actualSliderValue < expectedSliderValue) {
+            moveSlider(expectedSliderValue, Keys.ARROW_RIGHT);
+        }
+    }
+
+    // wysyłanie do slidera strzałkę w lewo / prawo aby go przesunąć
+    private void moveSlider(int expectedSliderValue, Keys key) {
+        while (getSliderValue() != expectedSliderValue) {
+            driver.findElement(By.id("custom-handle")).sendKeys(key);
+        }
+    }
+
+    // pobieranie textu wyświetlanego w sliderze i parsowanie go do inta
+    private int getSliderValue() {
+        return Integer.parseInt(
+                driver.findElement(By.id("custom-handle")).getText());
     }
 }

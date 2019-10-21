@@ -9,8 +9,16 @@ import java.util.List;
 import java.util.Random;
 
 public class TestBase {
-    public WebDriver driver;
+    // driver który będziemy używać w testach
+    WebDriver driver;
 
+    /*  metoda odpowiadająca za inicjalizacje drivera wraz z wstępnymi ustawieniami
+        przed każdym testam
+        plik chromedrivera znajduje się w projekcie
+        dlatego możemy podać jego relatywną ścieżkę (względem projektu)
+        dzięki temu testy będą działać na waszych komputerach bez względu na to
+        w jakim folderze znajduje się projekt
+     */
     @BeforeMethod
     public void setup() {
         System.setProperty("webdriver.chrome.driver", "src\\main\\resources\\chromedriver.exe");
@@ -20,18 +28,25 @@ public class TestBase {
         driver = new ChromeDriver(options);
     }
 
+    // zamykanie przeglądarki i drivera po każdym teście
     @AfterMethod
     public void tearDown() {
         driver.quit();
     }
 
-    public WebElement getRandomElement(List<WebElement> elements) {
+    // metoda zwracająca losowy WebElement z listy
+    // musimy wybierać losowy numer z zakresu od 0 do rozmiaru tablicy-1
+    // dlatego że tablicę numerujemy od 0. Wiec tablica o indeksach 0 1 2 3,
+    // ma 4 elementy ale maksymalny indeks to 3
+    WebElement getRandomElement(List<WebElement> elements) {
         Random rnd = new Random();
         int randomNumber = rnd.nextInt(elements.size() - 1);
         return elements.get(randomNumber);
     }
 
-    public void sleep(){
+
+    // bardzo zły sleep, tylko i wyłącznie na potrzeby początkowych testów
+    void veryBadSleep() {
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
