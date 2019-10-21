@@ -32,7 +32,7 @@ public class FormTest extends TestBase {
     */
 
     @Test
-    public void Test() {
+    public void formTest() {
         driver.get("http://seleniumui.tc-sii.com/form.php");
 
         WebElement firstName = driver.findElement(By.id("inputFirstName3"));

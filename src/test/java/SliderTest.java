@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 public class SliderTest extends TestBase {
 
     @Test
-    public void Test() {
+    public void sliderTest() {
         driver.get("http://seleniumui.tc-sii.com/slider.php");
         moveTo(50);
         moveTo(20);
