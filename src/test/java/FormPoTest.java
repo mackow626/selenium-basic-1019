@@ -10,6 +10,7 @@ public class FormPoTest extends TestBase {
     public void newFormTest() {
         File file = new File("src\\main\\resources\\emptyFile.txt");
         driver.get("http://seleniumui.tc-sii.com/form.php");
+
         FormPage formPage = new FormPage(driver);
         formPage.setFirstName("jan")
                 .setLastName("kowalski")

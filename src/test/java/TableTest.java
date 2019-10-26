@@ -1,6 +1,8 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
+import pages.TablePage;
+import pages.RowPage;
 
 import java.util.List;
 
@@ -14,7 +16,6 @@ public class TableTest extends TestBase {
     @Test
     public void tableTest() {
         driver.get("http://seleniumui.tc-sii.com/table.php");
-        veryBadSleep();
         List<WebElement> rows = driver.findElements(By.cssSelector("tbody tr"));
 
         for (WebElement row : rows) {
@@ -25,5 +26,19 @@ public class TableTest extends TestBase {
                 System.out.println(row.findElement(By.cssSelector("td:nth-of-type(1)")).getText());
             }
         }
+    }
+
+    @Test
+    public void tableTestWithPo() {
+        driver.get("http://seleniumui.tc-sii.com/table.php");
+        TablePage tablePage = new TablePage(driver);
+
+        for (RowPage peakData : tablePage.getAllPeaks()) {
+            if (peakData.getState().contains("Switzerland")
+                    && peakData.getHeight() > 4000) {
+                System.out.println(peakData.getName());
+            }
+        }
+
     }
 }
