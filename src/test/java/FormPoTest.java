@@ -8,7 +8,5 @@ public class FormPoTest extends TestBase {
         driver.get("http://seleniumui.tc-sii.com/form.php");
         FormPage formPage = new FormPage(driver);
         formPage.setFirstName("jan");
-        formPage.setLastName();
-        formPage.selectCountry();
     }
 }
