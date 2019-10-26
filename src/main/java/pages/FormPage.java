@@ -12,7 +12,6 @@ import java.util.Random;
 public class FormPage {
     public FormPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-
     }
 
     @FindBy(id = "inputFirstName3")
@@ -51,64 +50,77 @@ public class FormPage {
     @FindBy(id = "validator-message")
     private WebElement message;
 
-    public void setFirstName(String firstName) {
+    public FormPage setFirstName(String firstName) {
         this.firstName.sendKeys(firstName);
+        return this;
     }
 
-    public void setLastName(String lastName) {
+    public FormPage setLastName(String lastName) {
         this.lastName.sendKeys(lastName);
+        return this;
     }
 
-    public void setEmail(String email) {
+    public FormPage setEmail(String email) {
         this.email.sendKeys(email);
+        return this;
     }
 
-    public void selectSex(int index) {
+    public FormPage selectSex(int index) {
         sexRadioButtons.get(index).click();
+        return this;
     }
 
-    public void selectSex(String sexName) {
+    public FormPage selectSex(String sexName) {
         for (WebElement sex : sexRadioButtons) {
             if (sex.getAttribute("value").equals(sexName)) {
                 sex.click();
             }
         }
+        return this;
     }
 
 
-    public void setAge(String age) {
+    public FormPage setAge(String age) {
         this.age.sendKeys(age);
+        return this;
     }
 
-    public void randomYearsOfExperience() {
+    public FormPage randomYearsOfExperience() {
         getRandomElement(yearsOfExperience).click();
+        return this;
     }
 
-    public void selectManualTesterProfession() {
+    public FormPage selectManualTesterProfession() {
         manualTesterProfession.click();
+        return this;
     }
 
-    public void selectRandomContinent() {
+    public FormPage selectRandomContinent() {
         Select continentsSelect = new Select(continents);
         WebElement randomOption = getRandomElement(continentsSelect.getOptions());
         selectContinent(randomOption.getText());
+        return this;
     }
 
-    public void selectContinent(String continent) {
+    public FormPage selectContinent(String continent) {
         new Select(continents).selectByVisibleText(continent);
+        return this;
     }
 
-    public void selectSeleniumCommand(String command) {
+    public FormPage selectSeleniumCommand(String command) {
         new Select(seleniumCommands).selectByValue(command);
+        return this;
     }
 
-    public void addFile(String filePath) {
+    public FormPage addFile(String filePath) {
         fileInput.sendKeys(filePath);
+        return this;
     }
 
 
-    public void submit() {
+    public FormPage submit() {
         submit.click();
+        return this;
     }
 
     public String getMessage() {
